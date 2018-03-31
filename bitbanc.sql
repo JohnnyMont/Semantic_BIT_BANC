@@ -4,14 +4,14 @@ CREATE TABLE usuarios(
 	id_user INT(4) PRIMARY KEY AUTO_INCREMENT,
 	nomeCompleto VARCHAR(50) NOT NULL,
 	email VARCHAR(50) NOT NULL,
-	CPF INT(11) NOT NULL,
+	CPF VARCHAR(14) NOT NULL,
 	dataNasc DATE NOT NULL
 );
 CREATE TABLE membros(
 	id_membro INT(4) PRIMARY KEY AUTO_INCREMENT,
 	nomeCompleto VARCHAR(50) NOT NULL,
 	email VARCHAR(50) NOT NULL,
-	CPF INT(11) NOT NULL,
+	CPF VARCHAR(14) NOT NULL,
 	dataNasc DATE NOT NULL,
 	id_usuario INT(4),
 	FOREIGN KEY(id_usuario) REFERENCES usuarios(id_user)
@@ -27,18 +27,18 @@ CREATE TABLE cartaoCredito(
 	bandeira VARCHAR(50) NOT NULL,
 	num_cartao INT(16) UNIQUE NOT NULL,
 	vencimento DATE NOT NULL,
-	limite_credito DECIMAL(10,2) NOT NULL
+	limite_credito VARCHAR(255) NOT NULL
 );
 CREATE TABLE dadosBancarios(
 	id_contaBancaria INT(5) PRIMARY KEY AUTO_INCREMENT,
-	num_contaBancaria INT(10) NOT NULL,
+	num_contaBancaria VARCHAR(50) NOT NULL,
 	tipo_contaBancaria VARCHAR(20) NOT NULL,
-	saldo DECIMAL(10,2) NOT NULL
+	saldo_atual VARCHAR(255) NOT NULL
 );
 CREATE TABLE gastos(
 	id_gasto INT(5) PRIMARY KEY AUTO_INCREMENT,
 	descricao VARCHAR(50) NOT NULL,
-	valor DECIMAL(10,2) NOT NULL,
+	valor VARCHAR(255) NOT NULL,
 	data DATE NOT NULL
 );
 CREATE TABLE contas(
@@ -46,5 +46,23 @@ CREATE TABLE contas(
 	descricao VARCHAR(50) NOT NULL,
 	data_compra DATE NOT NULL,
 	data_venc DATE NOT NULL,
-	valor DECIMAL(10,2) NOT NULL
+	valor VARCHAR(255) NOT NULL
+);
+CREATE TABLE saldo_Banco(
+	id_saldo_banco INT(5) PRIMARY KEY AUTO_INCREMENT,
+	id_usuario INT(5),
+	id_contaBancaria INT(5),
+	saldo VARCHAR(255) NOT NULL,
+	data DATE NOT NULL,
+	FOREIGN KEY(id_usuario) REFERENCES usuarios(id_usuario),
+	FOREIGN KEY(id_contaBancaria) REFERENCES dadosBancarios(id_contaBancaria)
+);
+CREATE TABLE saldo_Cartao(
+	id_saldo_cartao INT(5) PRIMARY KEY AUTO_INCREMENT,
+	id_usuario INT(5),
+	id_cartao INT(5),
+	saldo VARCHAR(255) NOT NULL,
+	data DATE NOT NULL,
+	FOREIGN KEY(id_usuario) REFERENCES usuarios(id_usuario),
+	FOREIGN KEY(id_cartao) REFERENCES cartaoCredito(id_cartao)
 );
