@@ -35,12 +35,6 @@ CREATE TABLE dadosBancarios(
 	tipo_contaBancaria VARCHAR(20) NOT NULL,
 	saldo_atual VARCHAR(255) NOT NULL
 );
-CREATE TABLE gastos(
-	id_gasto INT(5) PRIMARY KEY AUTO_INCREMENT,
-	descricao VARCHAR(50) NOT NULL,
-	valor VARCHAR(255) NOT NULL,
-	data DATE NOT NULL
-);
 CREATE TABLE contas(
 	id_conta INT(5) PRIMARY KEY AUTO_INCREMENT,
 	descricao VARCHAR(50) NOT NULL,
